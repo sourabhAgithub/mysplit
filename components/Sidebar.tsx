@@ -22,7 +22,7 @@ export default function Sidebar() {
         <div className="bg-surface-container rounded-xl p-4 flex flex-col items-start gap-2">
           <span className="text-sm font-medium text-on-surface">Guest Mode</span>
           <span className="text-xs text-on-surface-variant">Sign in to sync your data across devices.</span>
-          <button className="text-xs text-tertiary font-semibold uppercase tracking-wider mt-1">Sign In</button>
+          <Link href="/login" className="text-xs text-tertiary font-semibold uppercase tracking-wider mt-1 hover:underline">Sign In</Link>
         </div>
       </div>
     </aside>

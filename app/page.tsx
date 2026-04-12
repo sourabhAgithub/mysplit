@@ -1,5 +1,6 @@
-import { PlusCircle, Zap, Dumbbell, AlignEndHorizontal, Activity, Pencil, ArrowRight } from "lucide-react";
-
+import { PlusCircle, Zap, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import ClientSplits from "@/components/ClientSplits";
 export default function Home() {
   return (
     <div className="flex flex-col gap-12 font-sans">
@@ -14,10 +15,10 @@ export default function Home() {
 
         {/* Primary CTAs */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="bg-kinetic-gradient text-on-primary font-display font-bold px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:shadow-[var(--shadow-ambient)] transition-all active:scale-95 group">
+          <Link href="/add-workout" className="bg-kinetic-gradient text-on-primary font-display font-bold px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:shadow-[var(--shadow-ambient)] transition-all active:scale-95 group">
             <PlusCircle size={20} className="text-on-primary" />
             Create New Split
-          </button>
+          </Link>
           <button className="bg-surface-container-high text-on-surface font-display font-bold px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-surface-container-highest transition-all active:scale-95">
             <Zap size={20} />
             Quick Start Workout
@@ -64,69 +65,7 @@ export default function Home() {
         </div>
 
         {/* Split Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Card 1 */}
-          <div className="bg-surface-container-low p-6 flex flex-col rounded-2xl border border-outline-variant/10 hover:border-primary/30 transition-all group">
-            <div className="flex justify-between items-start mb-6">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Dumbbell className="text-primary" size={24} />
-              </div>
-              <span className="text-on-surface-variant text-xs bg-surface-container px-3 py-1 rounded-full font-medium">Hypertrophy</span>
-            </div>
-            <h3 className="text-2xl font-display font-bold mb-1">Push Day</h3>
-            <p className="text-on-surface-variant text-sm mb-8 font-medium">Chest, Shoulders &amp; Triceps • 8 Exercises</p>
-            <div className="flex gap-3 mt-auto">
-              <button className="flex-1 bg-kinetic-gradient text-on-primary font-bold py-3 rounded-full active:scale-95 transition-transform flex items-center justify-center">
-                Start
-              </button>
-              <button className="px-4 bg-surface-container text-on-surface rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 flex items-center justify-center">
-                <Pencil size={18} />
-              </button>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-surface-container-low p-6 flex flex-col rounded-2xl border border-outline-variant/10 hover:border-primary/30 transition-all group">
-            <div className="flex justify-between items-start mb-6">
-              <div className="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center">
-                <AlignEndHorizontal className="text-tertiary" size={24} />
-              </div>
-              <span className="text-on-surface-variant text-xs bg-surface-container px-3 py-1 rounded-full font-medium">Endurance</span>
-            </div>
-            <h3 className="text-2xl font-display font-bold mb-1">Legs</h3>
-            <p className="text-on-surface-variant text-sm mb-8 font-medium">Quads, Hams &amp; Calves • 12 Exercises</p>
-            <div className="flex gap-3 mt-auto">
-              <button className="flex-1 bg-kinetic-gradient text-on-primary font-bold py-3 rounded-full active:scale-95 transition-transform flex items-center justify-center">
-                Start
-              </button>
-              <button className="px-4 bg-surface-container text-on-surface rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 flex items-center justify-center">
-                <Pencil size={18} />
-              </button>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-surface-container-low p-6 flex flex-col rounded-2xl border border-outline-variant/10 hover:border-primary/30 transition-all group">
-            <div className="flex justify-between items-start mb-6">
-              <div className="w-12 h-12 rounded-full bg-primary-dim/10 flex items-center justify-center">
-                <Activity className="text-primary-dim" size={24} />
-              </div>
-              <span className="text-on-surface-variant text-xs bg-surface-container px-3 py-1 rounded-full font-medium">Strength</span>
-            </div>
-            <h3 className="text-2xl font-display font-bold mb-1">Pull Day</h3>
-            <p className="text-on-surface-variant text-sm mb-8 font-medium">Back, Biceps &amp; Rear Delts • 9 Exercises</p>
-            <div className="flex gap-3 mt-auto">
-              <button className="flex-1 bg-kinetic-gradient text-on-primary font-bold py-3 rounded-full active:scale-95 transition-transform flex items-center justify-center">
-                Start
-              </button>
-              <button className="px-4 bg-surface-container text-on-surface rounded-full hover:bg-surface-container-highest transition-colors active:scale-95 flex items-center justify-center">
-                <Pencil size={18} />
-              </button>
-            </div>
-          </div>
-
-        </div>
+        <ClientSplits />
       </section>
     </div>
   );

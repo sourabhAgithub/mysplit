@@ -6,11 +6,11 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 h-16">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-kinetic-gradient flex items-center justify-center">
-            <span className="text-on-primary font-display font-bold text-lg">K</span>
+            <span className="text-on-primary font-display font-bold text-lg">GU</span>
           </div>
-          <span className="font-display font-bold text-lg text-on-surface tracking-tight">Kinetic Athlete</span>
+          <span className="font-display font-bold text-lg text-on-surface tracking-tight">Guest User Athlete</span>
         </div>
-        
+
         <div className="flex items-center gap-3">
           <button className="text-on-surface-variant hover:text-on-surface transition-colors">
             <Bell size={20} />

@@ -9,18 +9,21 @@ const INITIAL_DEFAULTS: Split[] = [
     id: 'default-1',
     name: 'Push Day',
     focus: 'Hypertrophy',
+    description: 'Chest, Shoulders & Triceps',
     exercises: Array(8).fill({ id: 'mock', name: 'Mock Exercise', type: 'Primary' }),
   },
   {
     id: 'default-2',
     name: 'Legs',
     focus: 'Endurance',
+    description: 'Quads, Hams & Calves',
     exercises: Array(12).fill({ id: 'mock', name: 'Mock Exercise', type: 'Primary' }),
   },
   {
     id: 'default-3',
     name: 'Pull Day',
     focus: 'Strength',
+    description: 'Back, Biceps & Rear Delts',
     exercises: Array(9).fill({ id: 'mock', name: 'Mock Exercise', type: 'Primary' }),
   }
 ];
@@ -33,7 +36,17 @@ export default function ClientSplits() {
   useEffect(() => {
     const saved = localStorage.getItem('kinetic_splits');
     if (saved) {
-      setSplits(JSON.parse(saved));
+      let parsedSplits: Split[] = JSON.parse(saved);
+      // Backwards compatibility patch for defaults without description
+      let modified = false;
+      parsedSplits = parsedSplits.map(s => {
+        if (s.id === 'default-1' && !s.description) { s.description = 'Chest, Shoulders & Triceps'; modified = true; }
+        if (s.id === 'default-2' && !s.description) { s.description = 'Quads, Hams & Calves'; modified = true; }
+        if (s.id === 'default-3' && !s.description) { s.description = 'Back, Biceps & Rear Delts'; modified = true; }
+        return s;
+      });
+      if (modified) localStorage.setItem('kinetic_splits', JSON.stringify(parsedSplits));
+      setSplits(parsedSplits);
     } else {
       localStorage.setItem('kinetic_splits', JSON.stringify(INITIAL_DEFAULTS));
       setSplits(INITIAL_DEFAULTS);
@@ -55,10 +68,10 @@ export default function ClientSplits() {
 
   const getStyleForFocus = (focus: string) => {
     switch (focus) {
-      case 'Hypertrophy': return { Icon: Dumbbell, color: 'text-primary', bg: 'bg-primary/10 border-transparent', subtitle: '8 Exercises' };
-      case 'Endurance': return { Icon: AlignEndHorizontal, color: 'text-tertiary', bg: 'bg-tertiary/10 border-transparent', subtitle: '12 Exercises' };
-      case 'Strength': return { Icon: Activity, color: 'text-primary-dim', bg: 'bg-primary-dim/10 border-transparent', subtitle: '9 Exercises' };
-      default: return { Icon: Dumbbell, color: 'text-on-surface-variant', bg: 'bg-surface-container-highest border-outline-variant/20', subtitle: 'Custom Protocol' };
+      case 'Hypertrophy': return { Icon: Dumbbell, color: 'text-primary', bg: 'bg-primary/10' };
+      case 'Endurance': return { Icon: AlignEndHorizontal, color: 'text-tertiary', bg: 'bg-tertiary/10' };
+      case 'Strength': return { Icon: Activity, color: 'text-primary-dim', bg: 'bg-primary-dim/10' };
+      default: return { Icon: Dumbbell, color: 'text-on-surface-variant', bg: 'bg-surface-container-highest border border-outline-variant/20' };
     }
   };
 
@@ -74,14 +87,16 @@ export default function ClientSplits() {
           return (
             <div key={split.id} className="bg-surface-container-low p-6 flex flex-col rounded-2xl border border-outline-variant/10 hover:border-primary/30 transition-all group">
               <div className="flex justify-between items-start mb-6">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center border ${style.bg}`}>
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${style.bg}`}>
                   <Icon className={style.color} size={24} />
                 </div>
                 <span className="text-on-surface-variant text-xs bg-surface-container px-3 py-1 rounded-full font-medium">{split.focus}</span>
               </div>
               <h3 className="text-2xl font-display font-bold mb-1">{split.name}</h3>
               <p className="text-on-surface-variant text-sm mb-8 font-medium">
-                {split.focus !== 'Custom' ? style.subtitle : `${split.exercises.length} Exercises • ${style.subtitle}`}
+                {split.description 
+                  ? `${split.description} • ${split.exercises.length} Exercises`
+                  : `${split.exercises.length} Exercises • Custom Protocol`}
               </p>
 
               <div className="flex gap-3 mt-auto">

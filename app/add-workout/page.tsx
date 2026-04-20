@@ -14,6 +14,7 @@ export interface Split {
   id: string;
   name: string;
   focus: string; // Hypertrophy | Endurance | Strength | Custom
+  description?: string;
   exercises: Exercise[];
 }
 

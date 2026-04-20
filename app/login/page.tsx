@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { Zap, ArrowRight, Activity, Dumbbell, Share2, Globe } from 'lucide-react';
 
@@ -58,7 +59,13 @@ export default function Login() {
 
             {/* Guest Mode Bridge */}
             <div className="relative mt-4 group">
-              <Link href="/" className="w-full p-6 glass-panel border border-outline-variant/20 rounded-xl flex flex-col gap-3 text-left hover:border-tertiary/40 transition-all active:scale-[0.98] block">
+              <button 
+                onClick={() => {
+                  localStorage.setItem('kinetic_user_mode', 'guest');
+                  window.location.href = '/';
+                }}
+                className="w-full p-6 glass-panel border border-outline-variant/20 rounded-xl flex flex-col gap-3 text-left hover:border-tertiary/40 transition-all active:scale-[0.98] block"
+              >
                 <div className="flex items-center justify-between w-full">
                   <span className="font-display font-bold text-lg text-on-surface">Continue as Guest</span>
                   <div className="px-3 py-1 bg-tertiary-container rounded-full flex items-center gap-2">
@@ -72,7 +79,7 @@ export default function Login() {
                     <span className="sm:hidden">locally on your device</span>
                   </span>. Register later to sync across devices.
                 </p>
-              </Link>
+              </button>
             </div>
           </div>
 

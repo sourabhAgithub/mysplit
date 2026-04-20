@@ -1,14 +1,33 @@
+'use client';
 import { Home, Activity, Calendar, Settings } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Sidebar() {
+  const [userMode, setUserMode] = useState<string | null>(null);
+
+  useEffect(() => {
+    setUserMode(localStorage.getItem('kinetic_user_mode'));
+  }, []);
+
   return (
     <aside className="hidden md:flex flex-col w-64 bg-surface-container-low h-full p-6 sticky top-0 border-r border-outline-variant/15">
       <div className="flex items-center gap-2 mb-12">
-        <div className="w-8 h-8 rounded-lg bg-kinetic-gradient flex items-center justify-center">
-          <span className="text-on-primary font-display font-bold">K</span>
-        </div>
-        <span className="font-display font-bold text-xl text-on-surface">Kinetic Athlete</span>
+        {userMode === 'guest' ? (
+          <>
+            <div className="w-8 h-8 rounded-lg bg-tertiary flex items-center justify-center">
+              <span className="text-background font-display font-bold">GU</span>
+            </div>
+            <span className="font-display font-bold text-xl text-on-surface">Guest User</span>
+          </>
+        ) : (
+          <>
+            <div className="w-8 h-8 rounded-lg bg-kinetic-gradient flex items-center justify-center">
+              <span className="text-on-primary font-display font-bold">K</span>
+            </div>
+            <span className="font-display font-bold text-xl text-on-surface">Kinetic Athlete</span>
+          </>
+        )}
       </div>
 
       <nav className="flex flex-col gap-2 flex-1">
@@ -22,7 +41,7 @@ export default function Sidebar() {
         <div className="bg-surface-container rounded-xl p-4 flex flex-col items-start gap-2">
           <span className="text-sm font-medium text-on-surface">Guest Mode</span>
           <span className="text-xs text-on-surface-variant">Sign in to sync your data across devices.</span>
-          <Link href="/login" className="text-xs text-tertiary font-semibold uppercase tracking-wider mt-1 hover:underline">Sign In</Link>
+          <Link href="/login" className="text-xs text-primary font-semibold uppercase tracking-wider mt-1 hover:underline">Sign In</Link>
         </div>
       </div>
     </aside>
